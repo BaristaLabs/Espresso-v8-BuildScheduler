@@ -10,7 +10,7 @@ namespace Espresso_v8_BuildScheduler.Triggers
     {
         [FunctionName("QueueBuildTimer")]
         public static async Task Run(
-            [TimerTrigger("0 0 */12 * * *")]TimerInfo myTimer,
+            [TimerTrigger("0 0 0/4 ? * * *")]TimerInfo myTimer,
             ExecutionContext context,
             ILogger log
             )

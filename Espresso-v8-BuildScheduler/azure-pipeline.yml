@@ -28,6 +28,13 @@ steps:
     inputs:
       versionSpec: 4.4.1
 
+  - task: NuGetCommand@2
+    displayName: "NuGet restore"
+    inputs:
+      feedsToUse: "select"
+      includeNuGetOrg: true
+      restoreSolution: "$(System.DefaultWorkingDirectory)/Espresso-v8-BuildScheduler/Espresso-v8-BuildScheduler.csproj"
+
   - task: VSBuild@1
     displayName: "Build solution"
     inputs:

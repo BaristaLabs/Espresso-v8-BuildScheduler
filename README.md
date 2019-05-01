@@ -1,6 +1,6 @@
 ﻿# Espresso v8 Functions
 
-Azure Functions that support Espresso v8
+Azure Functions that support the build and development process of BaristaLabs Espresso v8
 
 Mono-Repo that includes:
 

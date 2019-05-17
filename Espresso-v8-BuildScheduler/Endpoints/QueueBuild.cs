@@ -23,7 +23,7 @@ namespace Espresso_v8_BuildScheduler.Endpoints
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var data = JsonConvert.DeserializeObject<QueueBuildRequest>(requestBody);
+            _ = JsonConvert.DeserializeObject<QueueBuildRequest>(requestBody);
 
             var build = await BuildManager.QueueBuild(context, log);
             return new OkObjectResult(build.Id);

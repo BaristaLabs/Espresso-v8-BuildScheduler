@@ -5,12 +5,14 @@
     using Microsoft.TeamFoundation.Build.WebApi;
     using Microsoft.VisualStudio.Services.Common;
     using Microsoft.VisualStudio.Services.WebApi;
+    using Newtonsoft.Json;
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public static class BuildManager
     {
-        public static async Task<Build> QueueBuild(ExecutionContext context, ILogger log)
+        public static async Task<Build> QueueBuild(ExecutionContext context, ILogger log, string channel = "beta")
         {
             var config = ConfigHelper.GetConfig(context);
             var pat = config[ConfigHelper.DevOpsPersonalAccessToken];
@@ -34,13 +36,16 @@
                     throw new InvalidOperationException(message);
                 }
 
+                var buildParameters = new Dictionary<string, string> { { "V8_CHANNEL", channel } };
+
                 var build = await buildClient.QueueBuildAsync(new Build
                 {
                     Definition = new DefinitionReference
                     {
-                        Id = buildDefinition.Id
+                        Id = buildDefinition.Id,
                     },
-                    Project = buildDefinition.Project
+                    Project = buildDefinition.Project,
+                    Parameters = JsonConvert.SerializeObject(buildParameters)
                 });
 
                 return build;

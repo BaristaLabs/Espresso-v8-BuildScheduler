@@ -10,7 +10,7 @@ namespace Espresso_v8_BuildScheduler.Triggers
     {
         [FunctionName("QueueBuildTimer")]
         public static async Task Run(
-            [TimerTrigger("0 0 */8 * * *")]TimerInfo myTimer,
+            [TimerTrigger("0 0 */12 * * *")]TimerInfo myTimer,
             ExecutionContext context,
             ILogger log
             )
@@ -23,6 +23,7 @@ namespace Espresso_v8_BuildScheduler.Triggers
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
             await BuildManager.QueueBuild(context, log);
+            await BuildManager.QueueBuild(context, log, "stable");
         }
     }
 }
